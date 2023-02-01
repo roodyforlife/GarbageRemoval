@@ -11,7 +11,7 @@ namespace GarbageRemoval.DataBase
     {
         public ApplicationContext()
         {
-             Database.EnsureDeleted();
+            // Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -28,6 +28,11 @@ namespace GarbageRemoval.DataBase
             // optionsBuilder.UseSqlServer("Server=DESKTOP-KIV92L3;Database=GarbadgeRemoval;Trusted_Connection=True;Encrypt=False;");
             // optionsBuilder.UseSqlServer("Server=DESKTOP-I75L3P7;Database=GarbadgeRemoval;Trusted_Connection=True;Encrypt=False;");
              optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GarbadgeRemoval;Trusted_Connection=True;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<House>().HasMany(x => x.Orders).WithOne(x => x.House).HasForeignKey(x => x.HouseId).IsRequired().OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }
