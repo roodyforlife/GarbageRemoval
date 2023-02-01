@@ -85,6 +85,45 @@ namespace GarbageRemoval.Controllers
             return Redirect("../Employees/Index");
         }
 
+
+        public IActionResult Report(string request)
+        {
+            string connectionString = $"Server=DESKTOP-KIV92L3;Database=GarbadgeRemoval;Trusted_Connection=True;Encrypt=False;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(request, connection);
+                    var result = new RequestViewModel();
+                    var reader = command.ExecuteReader();
+                    result.Displays = new string[reader.FieldCount];
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        result.Displays[i] = reader.GetName(i);
+                    }
+
+                    while (reader.Read())
+                    {
+                        string[] value = new string[reader.FieldCount];
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            value[i] = reader.GetValue(i).ToString();
+                        }
+
+                        result.Result.Add(value);
+                    }
+
+                    return View(result);
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View();

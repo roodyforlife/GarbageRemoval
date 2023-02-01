@@ -1,0 +1,37 @@
+﻿@model GarbageRemoval.ViewModels.RequestViewModel
+
+@{
+    ViewData["Title"] = "Report";
+}
+<script src="~/js/script.js"></script>
+<div id="print">
+    <table class="table">
+        <thead>
+            <tr>
+                @foreach (var item in Model.Displays)
+                {
+                    <th>
+                        @item
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var listItem in Model.Result)
+            {
+                <tr>
+                    @foreach (var item in listItem)
+                    {
+                        <td>
+                            @item
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="printDoc('Report')">Print</button>
+</div>

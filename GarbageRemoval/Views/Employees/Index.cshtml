@@ -61,6 +61,10 @@
     <a asp-action="Create">Create New</a>
 </p>
 
+<div class="form-group mt-3">
+    <a class="btn btn-primary" asp-action="Report" asp-route-request="Select Surname, Name, Patronymic, HomeAddress, Email, Telephone, Birthday, EmploymentDate, Salary, BrigadeName from Employees
+left join Brigades on Brigades.BrigadeId = Employees.BrigadeId" asp-controller="Home">Print report</a>
+</div>
 
 <div class="form-group">
     <a asp-controller="Home" asp-action="Automation" class="btn btn-primary">Automation</a>
