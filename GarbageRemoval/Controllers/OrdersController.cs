@@ -61,6 +61,7 @@ namespace GarbageRemoval.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderId,BrigadeId,HouseId,CreateDate,IsServed,CostPerKilogram,GarbadgeWeight")] Order order)
         {
+            order.CreateDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(order);
@@ -102,6 +103,7 @@ namespace GarbageRemoval.Controllers
                 return NotFound();
             }
 
+            order.CreateDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 try

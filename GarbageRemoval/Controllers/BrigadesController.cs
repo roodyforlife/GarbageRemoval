@@ -59,6 +59,13 @@ namespace GarbageRemoval.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BrigadeId,BrigadeName,CreateDate,UniformColor,AdministrationId")] Brigade brigade)
         {
+            if (await _context.Brigades.FirstOrDefaultAsync(x => x.BrigadeName == brigade.BrigadeName
+                && brigade.AdministrationId == brigade.AdministrationId) is not null)
+            {
+                ModelState.AddModelError("BrigadeName", "Name already taken");
+            }
+
+            brigade.CreateDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(brigade);
@@ -98,6 +105,7 @@ namespace GarbageRemoval.Controllers
                 return NotFound();
             }
 
+            brigade.CreateDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 try
