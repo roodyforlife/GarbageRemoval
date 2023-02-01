@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UniformColor)
+                <div style="width: 50px; height: 50px; background: @item.UniformColor;"></div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Administration.AdministrationId)
+                @Html.DisplayFor(modelItem => item.Administration.Email)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BrigadeId">Edit</a> |

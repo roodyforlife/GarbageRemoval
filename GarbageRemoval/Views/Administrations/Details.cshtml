@@ -10,47 +10,47 @@
     <h4>Administration</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Surname)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Surname)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Patronymic)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Patronymic)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.HomeAddress)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.HomeAddress)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Telephone)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Telephone)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Company)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Company.CompanyId)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Company.Name)
         </dd>
     </dl>
 </div>
@@ -58,3 +58,44 @@
     <a asp-action="Edit" asp-route-id="@Model.AdministrationId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<h4>Brigades</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Brigades.First().BrigadeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brigades.First().CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brigades.First().UniformColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brigades.First().Administration)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Brigades)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrigadeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UniformColor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Administration.Email)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

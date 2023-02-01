@@ -36,6 +36,7 @@ namespace GarbageRemoval.Controllers
 
             var administration = await _context.Administrations
                 .Include(a => a.Company)
+                .Include(x => x.Brigades)
                 .FirstOrDefaultAsync(m => m.AdministrationId == id);
             if (administration == null)
             {
