@@ -6,9 +6,54 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form asp-action="Index" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Brigade name</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.BridageName" name="bridageName" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Administration email</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.Email" name="email" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Create date from</span>
+        </div>
+        <input type="date" class="form-control" aria-label="Default" value="@ViewBag.CreateDateFrom.ToString("yyyy-MM-dd")" name="createDateFrom" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Create date to</span>
+        </div>
+        <input type="date" class="form-control" aria-label="Default" value="@ViewBag.CreateDateTo.ToString("yyyy-MM-dd")" name="createDateTo" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Sorting</span>
+        </div>
+        <select class="custom-select" name="sort" id="inputGroupSelect01" asp-items="@ViewBag.Sort"></select>
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+<div class="form-group">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
+
+<div class="form-group">
+    <a class="btn btn-primary" asp-action="Requests" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та кількості замовлень даної бригади за останій місяць</a>
+</div>
+
+<div class="form-group">
+    <a class="btn btn-primary" asp-action="Requests" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та сумою заробленою за місяць з замовлень.</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,26 +73,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BrigadeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                <div style="width: 50px; height: 50px; background: @item.UniformColor;"></div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Administration.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BrigadeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BrigadeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BrigadeId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrigadeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    <div style="width: 50px; height: 50px; background: @item.UniformColor;"></div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Administration.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BrigadeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.BrigadeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.BrigadeId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

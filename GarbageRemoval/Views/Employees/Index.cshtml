@@ -6,6 +6,57 @@
 
 <h1>Index</h1>
 
+<form asp-action="Index" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Surname</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.Surname" name="surname" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.Email" name="email" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Home address</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.Address" name="address" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Employment date from</span>
+        </div>
+        <input type="date" class="form-control" aria-label="Default" value="@ViewBag.DateFrom.ToString("yyyy-MM-dd")" name="dateFrom" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Employment date to</span>
+        </div>
+        <input type="date" class="form-control" aria-label="Default" value="@ViewBag.DateTo.ToString("yyyy-MM-dd")" name="dateTo" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Brigade name</span>
+        </div>
+        <input type="number" class="form-control" aria-label="Default" value="@ViewBag.BrigadeName" name="brigadeName" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Salary from</span>
+        </div>
+        <input type="number" class="form-control" aria-label="Default" value="@ViewBag.SalaryFrom" name="salaryFrom" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Salary to</span>
+        </div>
+        <input type="number" class="form-control" aria-label="Default" value="@ViewBag.SalaryTo" name="salaryTo" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Sorting</span>
+        </div>
+        <select class="custom-select" name="sort" id="inputGroupSelect01" asp-items="@ViewBag.Sort"></select>
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>

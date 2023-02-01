@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GarbageRemoval.DataBase;
 using GarbageRemoval.Models;
+using GarbageRemoval.Enums;
 
 namespace GarbageRemoval.Controllers
 {
@@ -20,9 +21,65 @@ namespace GarbageRemoval.Controllers
         }
 
         // GET: Brigades
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string brigadeName, string email, DateTime createDateFrom, DateTime createDateTo,
+            BrigadeSortState sort = BrigadeSortState.BrigadeNameAsc)
         {
-            var applicationContext = _context.Brigades.Include(b => b.Administration);
+            IQueryable<Brigade> applicationContext = _context.Brigades.Include(b => b.Administration);
+
+            if (brigadeName is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.BrigadeName.Contains(brigadeName));
+            }
+
+            if (email is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.Administration.Email.Contains(email));
+            }
+
+            applicationContext = applicationContext.Where(x => x.CreateDate >= createDateFrom);
+
+            if (createDateTo.Year != 1)
+            {
+                applicationContext = applicationContext.Where(x => x.CreateDate <= createDateTo);
+            }
+
+            switch (sort)
+            {
+                case BrigadeSortState.BrigadeNameAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.BrigadeName);
+                    break;
+                case BrigadeSortState.BrigadeNameDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.BrigadeName);
+                    break;
+                case BrigadeSortState.CreateDateAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.CreateDate);
+                    break;
+                case BrigadeSortState.CreateDateDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.CreateDate);
+                    break;
+                case BrigadeSortState.AdministrationAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.Administration.Email);
+                    break;
+                case BrigadeSortState.AdministrationDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.Administration.Email);
+                    break;
+                default:
+                    applicationContext = applicationContext.OrderBy(x => x.BrigadeName);
+                    break;
+            }
+
+            ViewBag.BrigadeName = brigadeName;
+            ViewBag.Email = email;
+            ViewBag.CreateDateFrom = createDateFrom;
+            ViewBag.CreateDateTo = createDateTo;
+            ViewBag.Sort = (List<SelectListItem>)Enum.GetValues(typeof(BrigadeSortState)).Cast<BrigadeSortState>()
+               .Select(x => new SelectListItem
+               {
+                   Text = x.ToString(),
+                   Value = x.ToString(),
+                   Selected = (x == sort)
+               }).ToList();
+
             return View(await applicationContext.ToListAsync());
         }
 

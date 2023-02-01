@@ -1,0 +1,33 @@
+﻿@model GarbageRemoval.ViewModels.RequestViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Statistic request</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var item in Model.Displays)
+            {
+                <th>
+                    @item
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var listItem in Model.Result)
+        {
+        <tr>
+            @foreach (var item in listItem)
+            {
+                <td>
+                    @item
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

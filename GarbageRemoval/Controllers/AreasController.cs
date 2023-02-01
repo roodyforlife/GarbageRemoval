@@ -20,9 +20,23 @@ namespace GarbageRemoval.Controllers
         }
 
         // GET: Areas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string areaName, string brigadeName)
         {
-            var applicationContext = _context.Areas.Include(a => a.Brigade);
+            IQueryable<Area> applicationContext = _context.Areas.Include(a => a.Brigade);
+
+            if (areaName is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.AreaName.Contains(areaName));
+            }
+
+            if (brigadeName is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.Brigade.BrigadeName.Contains(brigadeName));
+            }
+
+            ViewBag.AreaName = areaName;
+            ViewBag.BrigadeName = brigadeName;
+
             return View(await applicationContext.ToListAsync());
         }
 

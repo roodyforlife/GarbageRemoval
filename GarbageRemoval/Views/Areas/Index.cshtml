@@ -6,9 +6,33 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form asp-action="Index" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Area name</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.AreaName" name="areaName" aria-describedby="inputGroup-sizing-default">
+        <div class="input-group-prepend ml-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Brigade name</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.BrigadeName" name="brigadeName" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+<div class="form-group">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
+
+<div class="form-group">
+    <a class="btn btn-primary" asp-action="Requests" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх районів з кількісттю адрес (будинків) у даному районі.</a>
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -22,20 +46,21 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AreaName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brigade.BrigadeName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AreaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AreaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AreaId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AreaName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brigade.BrigadeName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AreaId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.AreaId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AreaId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

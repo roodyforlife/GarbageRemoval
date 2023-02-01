@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GarbageRemoval.DataBase;
 using GarbageRemoval.Models;
+using GarbageRemoval.Enums;
 
 namespace GarbageRemoval.Controllers
 {
@@ -20,9 +21,99 @@ namespace GarbageRemoval.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string surname, string email, string address, DateTime dateFrom, DateTime dateTo, 
+            string brigadeName, int salaryFrom, int salaryTo, EmployeeSortState sort = EmployeeSortState.EmailAsc)
         {
-            var applicationContext = _context.Employees.Include(e => e.Brigade);
+            IQueryable<Employee> applicationContext = _context.Employees.Include(e => e.Brigade);
+
+            if (surname is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.Surname.Contains(surname));
+            }
+
+            if (email is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.Email.Contains(email));
+            }
+
+            if (address is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.HomeAddress.Contains(address));
+            }
+
+            applicationContext = applicationContext.Where(x => x.EmploymentDate >= dateFrom);
+
+            if (dateTo.Year != 1)
+            {
+                applicationContext = applicationContext.Where(x => x.EmploymentDate <= dateTo);
+            }
+
+            if (brigadeName is not null)
+            {
+                applicationContext = applicationContext.Where(x => x.Brigade.BrigadeName.Contains(brigadeName));
+            }
+
+            applicationContext = applicationContext.Where(x => x.Salary >= salaryFrom);
+
+            if (salaryTo != 0)
+            {
+                applicationContext = applicationContext.Where(x => x.Salary <= salaryTo);
+            }
+
+            switch (sort)
+            {
+                case EmployeeSortState.SurnameAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.Surname);
+                    break;
+                case EmployeeSortState.SurnameDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.Surname);
+                    break;
+                case EmployeeSortState.EmailAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.Email);
+                    break;
+                case EmployeeSortState.EmailDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.Email);
+                    break;
+                case EmployeeSortState.SalaryAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.Salary);
+                    break;
+                case EmployeeSortState.SalaryDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.Salary);
+                    break;
+                case EmployeeSortState.EmploymentDateAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.EmploymentDate);
+                    break;
+                case EmployeeSortState.EmploymentDateDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.EmploymentDate);
+                    break;
+                case EmployeeSortState.BirthdayAsc:
+                    applicationContext = applicationContext.OrderBy(x => x.Birthday);
+                    break;
+                case EmployeeSortState.BirthdayDesc:
+                    applicationContext = applicationContext.OrderByDescending(x => x.Birthday);
+                    break;
+                default:
+                    applicationContext = applicationContext.OrderBy(x => x.Surname);
+                    break;
+            }
+
+            ViewBag.Sort = (List<SelectListItem>)Enum.GetValues(typeof(EmployeeSortState)).Cast<EmployeeSortState>()
+               .Select(x => new SelectListItem
+               {
+                   Text = x.ToString(),
+                   Value = x.ToString(),
+                   Selected = (x == sort)
+               }).ToList();
+
+            ViewBag.Surname = surname;
+            ViewBag.Email = email;
+            ViewBag.Address = address;
+            ViewBag.DateFrom = dateFrom;
+            ViewBag.DateTo = dateTo;
+            ViewBag.BrigadeName = brigadeName;
+            ViewBag.SalaryFrom = salaryFrom;
+            ViewBag.SalaryTo = salaryTo;
+
             return View(await applicationContext.ToListAsync());
         }
 
