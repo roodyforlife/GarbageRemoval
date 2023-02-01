@@ -47,11 +47,17 @@
 </div>
 
 <div class="form-group">
-    <a class="btn btn-primary" asp-action="Request" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та кількості замовлень даної бригади за останій місяць</a>
+    <a class="btn btn-primary" asp-action="Request" asp-route-request="Select BrigadeName, Administrations.Email as 'Admin email', COUNT(Orders.OrderId) as 'Quantity of orders' from Brigades
+left join Orders on Orders.BrigadeId = Brigades.BrigadeId
+left join Administrations on Administrations.AdministrationId = Brigades.AdministrationId
+where Orders.CreateDate between DATEADD(month, -1, GETDATE()) AND GETDATE() AND Orders.IsServed = 1
+group by BrigadeName, Administrations.Email, Orders.IsServed" asp-controller="Home">Запит на статистику з виводом бригад та кількості виконаних замовлень даної бригади за останій місяць</a>
 </div>
 
 <div class="form-group">
-    <a class="btn btn-primary" asp-action="Request" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та сумою заробленою за місяць з замовлень.</a>
+    <a class="btn btn-primary" asp-action="Request" asp-route-request="Select BrigadeName, SUM(Orders.CostPerKilogram * Orders.GarbadgeWeight) as 'earned amount' from Brigades
+left join Orders on Orders.BrigadeId = Brigades.BrigadeId
+group by BrigadeName" asp-controller="Home">Запит на статистику з виводом всіх бригад та сумою заробленою за місяць з замовлень.</a>
 </div>
 
 <table class="table">

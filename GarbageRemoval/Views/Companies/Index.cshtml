@@ -11,7 +11,14 @@
 </p>
 
 <div class="form-group">
-    <a class="btn btn-primary" asp-action="Request" asp-route-request="" asp-controller="Home">Запит на статистику з виводом усіх компаній та підрахунок прибутку за рік (зароблена сумма за сміття та витрачена сумма на зарплати робітників)</a>
+    <a class="btn btn-primary" asp-action="Request" asp-route-request="Select Companies.Name, Companies.Address,
+(SUM(Orders.CostPerKilogram * Orders.GarbadgeWeight) - SUM(Employees.Salary * DATEDIFF(month, Employees.EmploymentDate, GETDATE()))) as 'Profit'
+from Companies
+left join Administrations on Administrations.CompanyId = Companies.CompanyId
+left join Brigades on Brigades.AdministrationId = Administrations.AdministrationId
+left join Orders on Orders.BrigadeId = Brigades.BrigadeId
+left join Employees on Employees.BrigadeId = Brigades.BrigadeId
+group by Companies.Name, Companies.Address" asp-controller="Home">Запит на статистику з виводом усіх компаній та підрахунок прибутку за увесь час (зароблена сумма за сміття та витрачена сумма на зарплати робітників)</a>
 </div>
 
 <table class="table">
