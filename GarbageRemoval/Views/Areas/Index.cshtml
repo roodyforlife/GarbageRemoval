@@ -29,7 +29,9 @@
 </div>
 
 <div class="form-group">
-    <a class="btn btn-primary" asp-action="Requests" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх районів з кількісттю адрес (будинків) у даному районі.</a>
+    <a class="btn btn-primary" asp-action="Request" asp-route-request="select AreaName, COUNT(HouseId) as 'Quantity of houses' from Areas
+left join Houses on Houses.AreaId = Areas.AreaId
+group by AreaName" asp-controller="Home">Запит на статистику з виводом всіх районів з кількісттю адрес (будинків) у даному районі.</a>
 </div>
 
 

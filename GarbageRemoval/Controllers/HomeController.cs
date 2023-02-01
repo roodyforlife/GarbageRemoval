@@ -31,7 +31,8 @@ namespace GarbageRemoval.Controllers
 
         public IActionResult Request(string request)
         {
-            string connectionString = $"Server=(localdb)\\mssqllocaldb;Database=GarbadgeRemoval;Trusted_Connection=True;";
+            // string connectionString = $"Server=(localdb)\\mssqllocaldb;Database=GarbadgeRemoval;Trusted_Connection=True;";
+            string connectionString = $"Server=DESKTOP-KIV92L3;Database=GarbadgeRemoval;Trusted_Connection=True;Encrypt=False;";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

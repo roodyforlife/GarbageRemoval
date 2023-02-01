@@ -11,7 +11,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Brigade name</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.BridageName" name="bridageName" aria-describedby="inputGroup-sizing-default">
+        <input type="text" class="form-control" aria-label="Default" value="@ViewBag.BridageName" name="brigadeName" aria-describedby="inputGroup-sizing-default">
         <div class="input-group-prepend ml-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Administration email</span>
         </div>
@@ -47,11 +47,11 @@
 </div>
 
 <div class="form-group">
-    <a class="btn btn-primary" asp-action="Requests" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та кількості замовлень даної бригади за останій місяць</a>
+    <a class="btn btn-primary" asp-action="Request" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та кількості замовлень даної бригади за останій місяць</a>
 </div>
 
 <div class="form-group">
-    <a class="btn btn-primary" asp-action="Requests" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та сумою заробленою за місяць з замовлень.</a>
+    <a class="btn btn-primary" asp-action="Request" asp-route-request="" asp-controller="Home">Запит на статистику з виводом всіх бригад та сумою заробленою за місяць з замовлень.</a>
 </div>
 
 <table class="table">

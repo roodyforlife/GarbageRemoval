@@ -68,7 +68,7 @@ namespace GarbageRemoval.Controllers
                     break;
             }
 
-            ViewBag.BrigadeName = brigadeName;
+            ViewBag.BridageName = brigadeName;
             ViewBag.Email = email;
             ViewBag.CreateDateFrom = createDateFrom;
             ViewBag.CreateDateTo = createDateTo;
