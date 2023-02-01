@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GarbageRemoval.Models.Brigade>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BrigadeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UniformColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Administration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrigadeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UniformColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Administration.AdministrationId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BrigadeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BrigadeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BrigadeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

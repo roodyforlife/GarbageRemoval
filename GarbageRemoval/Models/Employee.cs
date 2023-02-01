@@ -18,5 +18,6 @@ namespace GarbageRemoval.Models
         public DateTime EmploymentDate { get; set; }
         public int Salary { get; set; } // per month
         public Brigade Brigade { get; set; }
+        public int BrigadeId { get; set; }
     }
 }
