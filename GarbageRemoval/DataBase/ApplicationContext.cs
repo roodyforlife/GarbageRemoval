@@ -25,7 +25,7 @@ namespace GarbageRemoval.DataBase
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GarbadgeRemoval;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GarbadgeRemoval;Trusted_Connection=True;");;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
