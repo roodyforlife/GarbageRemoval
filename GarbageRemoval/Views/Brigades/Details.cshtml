@@ -10,28 +10,28 @@
     <h4>Brigade</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.BrigadeName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.BrigadeName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CreateDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CreateDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UniformColor)
         </dt>
         <dd class="col-sm-10">
             <div style="width: 50px; height: 50px; background: @Model.UniformColor;"></div>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Administration)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Administration.Email)
         </dd>
     </dl>
@@ -40,3 +40,56 @@
     <a asp-action="Edit" asp-route-id="@Model.BrigadeId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<h4>Orders</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().Brigade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().House)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().IsServed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().CostPerKilogram)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().GarbadgeWeight)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brigade.BrigadeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.House.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsServed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CostPerKilogram)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GarbadgeWeight)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -93,6 +93,7 @@ namespace GarbageRemoval.Controllers
 
             var brigade = await _context.Brigades
                 .Include(b => b.Administration)
+                .Include(x => x.Orders)
                 .FirstOrDefaultAsync(m => m.BrigadeId == id);
             if (brigade == null)
             {
